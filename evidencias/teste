@@ -1,4 +1,6 @@
 Este código é diferente do final ja que ainda nao tenho acesso como o meu Droplet na DigitalOcean. Para este teste, vou usar o broker público para garantir que a conexão funcione.
+https://wokwi.com/projects/459852203998800897
+
 
 #include <WiFi.h>
 #include <PubSubClient.h>
