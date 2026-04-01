@@ -21,7 +21,7 @@ Resultado Esperado
 Monitoramento via logs em tempo real no terminal confirmando cada abertura e fechamento, além de um aviso visual crítico caso a porta permaneça aberta por mais de um minuto.
 Hardware / Software planejado
 
-    Publisher: ESP32 (Físico ou simulado no Wokwi)
+    Publisher: ESP32 (Simulado no Wokwi)
 
     Broker: Mosquitto na VPS DigitalOcean
 
