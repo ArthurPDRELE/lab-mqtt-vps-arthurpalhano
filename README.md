@@ -1,35 +1,28 @@
-# lab-mqtt-vps-arthurpalhano
-**Nome:** Arthur Palhano do Rosario  
-**Curso:** Técnico em Eletrônica
+Escopo do Projeto — Arthur Palhano
+Integrantes
 
-# Projeto de Monitoramento de Acesso: Estoque Restrito
+    Arthur Palhano do Rosario — Técnico em Eletrônica
 
-## 1. Definição do Problema
-O projeto resolve a vulnerabilidade de segurança em áreas de armazenamento restrito. O risco real é o acesso não supervisionado e o esquecimento de portas abertas. O sistema garante a rastreabilidade: quem abriu e se a porta ficou aberta por tempo excessivo.
+Problema
 
-## 2. Escopo do Monitoramento
-* **Grandeza:** Estado binário (Aberto/Fechado).
-* **Sensor:** Magnético de Contato (Reed Switch).
-* **Inteligência de Tempo:** Alerta automático caso a porta fique aberta por mais de 60 segundos.
+O projeto aborda a vulnerabilidade de segurança em áreas de estoque restrito, onde o acesso não supervisionado ou o esquecimento de portas abertas gera riscos de perdas. O sistema garante rastreabilidade total e alertas em tempo real para portas deixadas abertas.
+O que será monitorado
 
-## 3. Arquitetura da Solução
-1. **Dispositivo:** ESP32 + Sensor Reed Switch.
-2. **Rede:** Protocolo MQTT via Wi-Fi.
-3. **Broker:** Mosquitto MQTT instalado em VPS DigitalOcean.
-4. **Aplicação:** Terminal SSH da VPS (Subscriber).
+Estado binário (Aberto/Fechado) de uma porta de acesso e o tempo de permanência em estado aberto.
+Sensor / Dado
 
-## 4. Especificação Técnica
-| Item | Detalhes |
-| :--- | :--- |
-| **Microcontrolador** | ESP32 |
-| **Sensor** | Reed Switch (Digital) |
-| **Frequência** | Por evento |
-| **Formato Payload** | Texto Simples (String/Integer) |
+Sensor Magnético de Contato (Reed Switch) conectado ao ESP32, operando por evento (mudança de estado).
+Estrutura de Tópicos MQTT
+Tópico	Descrição	Publisher	Subscriber
+empresa/estoque/porta/status	Envia 0 (fechado) ou 1 (aberto)	ESP32	Terminal VPS
+empresa/estoque/sistema/alerta	Mensagem de alerta (tempo excedido > 60s)	ESP32	Terminal VPS
+Resultado Esperado
 
-## 5. Estrutura de Tópicos MQTT
-* `empresa/estoque/porta/status`: Envia `0` (fechado) ou `1` (aberto).
-* `empresa/estoque/sistema/alerta`: Envia a frase de alerta de tempo excedido.
+Monitoramento via logs em tempo real no terminal confirmando cada abertura e fechamento, além de um aviso visual crítico caso a porta permaneça aberta por mais de um minuto.
+Hardware / Software planejado
 
-## 6. Resultados Esperados
-* **Monitoramento:** Logs no terminal confirmando a abertura/fechamento.
-* **Alerta:** Aviso visual no terminal caso a porta exceda 1 minuto aberta.
+    Publisher: ESP32 (Físico ou simulado no Wokwi)
+
+    Broker: Mosquitto na VPS DigitalOcean
+
+    Subscriber: Terminal SSH da VPS (via mosquitto_sub)
