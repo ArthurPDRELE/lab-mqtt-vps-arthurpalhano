@@ -1,59 +1,54 @@
-Aqui está o escopo do projeto formatado em lista limpa, sem o uso de ícones ou emojis, otimizado para a visualização no GitHub:
 Escopo do Projeto — Arthur Palhano
 Integrantes
 
-    Arthur Palhano do Rosario — Técnico em Eletrônica
+Arthur Palhano do Rosario — Técnico em Eletrônica
 
 Problema
 
-    Contexto: Áreas de armazenamento com acesso restrito.
+Contexto: Áreas de armazenamento com acesso restrito.
 
-    Risco: Vulnerabilidade de segurança por acesso não supervisionado ou esquecimento de portas abertas, resultando em risco de perdas.
+Risco: Vulnerabilidade de segurança por acesso não supervisionado ou esquecimento de portas abertas, resultando em risco de perdas.
 
-    Solução: Sistema de rastreabilidade total com alertas em tempo real para detecção de portas deixadas abertas por tempo excessivo.
+Solução: Sistema de rastreabilidade total com alertas em tempo real para detecção de portas deixadas abertas por tempo excessivo.
 
 O que será monitorado
 
-    Estado da Porta: Binário (0 para Fechado / 1 para Aberto).
+Estado da Porta: Descritivo ("Porta aberta" / "Porta fechada").
 
-    Tempo de Exposição: Cronometragem do período em que a porta permanece no estado aberto.
+Tempo de Exposição: Cronometragem do período em que a porta permanece aberta.
 
 Sensor / Dado
 
-    Hardware: Sensor Magnético de Contato (Reed Switch).
+Hardware: Sensor Magnético de Contato (Reed Switch).
 
-    Lógica de Acionamento: Operação por evento, enviando dados imediatamente após a mudança de estado detectada no GPIO 23.
+Lógica de Acionamento: Operação por evento, enviando dados imediatamente após a mudança de estado detectada no GPIO 23.
 
-    Processamento: Uso da função millis() no ESP32 para contagem de tempo não bloqueante, evitando interrupções na conexão MQTT.
+Processamento: Uso da função millis() para contagem de tempo não bloqueante e geração de ID de cliente aleatório para estabilidade da conexão.
 
 Estrutura de Tópicos MQTT
 
-    Status da Porta:
+Status da Porta:
 
-        Tópico: empresa/estoque/porta/status
+Tópico: empresa/estoque/porta/status
 
-        Publisher: ESP32
+Mensagens: "Porta aberta" ou "Porta fechada"
 
-        Subscriber: Terminal VPS
+Publisher: ESP32
 
-    Alerta de Segurança:
+Subscriber: Terminal VPS / Dashboard
 
-        Tópico: empresa/estoque/sistema/alerta
+Alerta de Segurança:
 
-        Publisher: ESP32
+Tópico: empresa/estoque/sistema/alerta
 
-        Subscriber: Terminal VPS
+Mensagem: "ALERTA CRITICO PORTA ABERTA"
+
+Publisher: ESP32
+
+Subscriber: Terminal VPS / Dashboard
 
 Resultado Esperado
 
-    Monitoramento: Logs detalhados no terminal da VPS confirmando cada interação de abertura e fechamento.
+Monitoramento: Logs detalhados no terminal da VPS confirmando cada interação.
 
-    Segurança Ativa: Geração de aviso visual crítico no terminal caso a porta permaneça aberta por mais de 60 segundos.
-
-Hardware / Software Planejado
-
-    Dispositivo (Publisher): ESP32 (Simulado via Wokwi).
-
-    Servidor (Broker): Mosquitto MQTT instalado em VPS DigitalOcean (IP: 134.199.142.253).
-
-    Aplicação (Subscriber): Terminal SSH da VPS através da ferramenta mosquitto_sub.
+Segurança Ativa: Geração de aviso crítico caso a porta permaneça aberta por mais de 60 segundos.
